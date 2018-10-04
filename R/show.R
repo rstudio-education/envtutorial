@@ -42,13 +42,13 @@ show_stack <- function (e = parent.frame()) {
     e <- environment(e)
   if (is.null(e))
     return(NULL)
-  envs <- list(e)
+  envs <- list(environment(), e)
   n <- 2
   while (TRUE) {
     if (identical(e, globalenv()))
       break
-    n <- n + 1
     e <- parent.frame(n)
+    n <- n + 1
     envs <- c(envs, e)
   }
   pryr::as.envlist(envs)
